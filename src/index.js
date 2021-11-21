@@ -1,14 +1,14 @@
 import express from 'express';
 import fetch from 'node-fetch';
 import cors from 'cors';
-// import FormData from 'form-data';
-// import { FormData } from 'formdata-polyfill/esm.min.js';
 import FormData from 'form-data';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 
 app.use(cors({ origin: '*' }));
-
 app.use(express.json());
 
 app.post('/upload', async (req, res) => {
@@ -21,7 +21,7 @@ app.post('/upload', async (req, res) => {
 	const json = await fetch(`https://api.miro.com/v1/boards/${board}/picture`, {
 		method: 'POST',
 		headers: {
-			Authorization: 'Bearer SCKCdidf3TOB9XdE08zZvQ2THFQ',
+			Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
 			Accept: 'application/json',
 		},
 		body: form,
